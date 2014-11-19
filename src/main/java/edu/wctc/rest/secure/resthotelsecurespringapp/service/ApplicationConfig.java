@@ -29,7 +29,6 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(edu.wctc.rest.secure.resthotelsecurespringapp.service.CrossOriginResourceSharingFilter.class);
         resources.add(edu.wctc.rest.secure.resthotelsecurespringapp.service.HotelFacadeREST.class);
     }
     

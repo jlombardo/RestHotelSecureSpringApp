@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration debug="false">
+    
+    <property name="REST_SPRING_HOME" value="/logs/rest-spring-secure" />
+
+    <!-- ONLY USE THIS IF ENABLING FILE appender below
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${REST_SPRING_HOME}/spring-rest.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> -->
+            
+            <!-- Monthly rollover (replace "-MM" with "-ww" for weekly, -MM-dd_HH for hourly
+            <fileNamePattern>${JSFSECURE_HOME}/logs.bu/spring-rest.%d{yyyy-ww}.zip</fileNamePattern>  -->
+
+            <!-- keep [nn] history relative to rollover unit of time
+            <maxHistory>30</maxHistory> 
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender> 
+    -->
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- child level logging for application -->
+    <logger name="edu.wctc.rest.secure.resthotelsecurespringapp" level="DEBUG" />
+    <logger name="org.springframework" level="DEBUG" />
+
+    <!-- root level logging (children can override) -->
+    <root level="DEBUG">
+        <!-- appender-ref ref="FILE" / -->
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

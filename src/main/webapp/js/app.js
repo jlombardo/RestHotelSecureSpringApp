@@ -13,7 +13,7 @@
  */
 
 // The root URL for the RESTful services
-var rootURL = "http://localhost:8080/RestHotelSecureSpringApp/api/v1/hotels";
+var rootURL = "https://localhost:8181/RestHotelSecureSpringApp/api/v1/hotels";
 var currentHotel;
 
 // Retrieve hotel list when application starts
