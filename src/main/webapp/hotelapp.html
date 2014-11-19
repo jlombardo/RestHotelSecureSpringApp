@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+    This is the main and only page view -- a RESTful Client -- in this 
+    application. Please note that it is heavily dependent on JavaScript 
+    and JQuery. See js/app.js for the logic behind this RESTful client.
+    
+    NOTES on running: although this is a web app, it is based on the new
+    Spring Boot tooling which lets us dispense with all the configuration 
+    details and runs the app like a standalone java app. When you run this
+    app that way, Spring Boot configures an in-memory database (H2) and 
+    an embedded version of the Tomcat web server, then deploys your code 
+    to that server. See the app at http://localhost:8080
+-->
+<html>
+    <head>
+        <title>RESTful Web Service Demo :: Hotels</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/styles.css" /> 
+    </head>
+    <body>
+        <h1>Hotel Manager</h1>
+        <p>(Click <a href="index.html">here</a> for REST API)</p>
+
+        <div class="header">
+            <input type="text" id="searchKey"/>
+            <button id="btnSearch">Search</button>
+            <button id="btnAdd">New Hotel</button>
+        </div>
+
+        <div class="leftArea">
+            <ul id="hotelList"></ul>
+        </div>
+
+        <form id="hotelForm">
+
+            <div class="mainArea">
+
+                <label>Id:</label>
+                <input id="hotelId" name="hotelId" type="text" disabled />
+
+                <label>Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label>Address</label>
+                <input type="text" id="address" name="address"/>
+
+                <label>City</label>
+                <input type="text" id="city" name="city"/>
+
+                <label>Zip</label>
+                <input type="text" id="zip" name="zip"/>
+
+                <button id="btnSave">Save</button>
+                <button id="btnDelete">Delete</button>
+
+            </div>
+
+            <div class="rightArea">
+
+                <img id="pic" height="300"/>
+
+                <label>Notes:</label>
+                <textarea id="description" name="description"></textarea>
+            </div>
+
+        </form>
+
+        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
