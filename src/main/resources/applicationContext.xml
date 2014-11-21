@@ -31,15 +31,25 @@
     </sec:authentication-manager>
 
     <sec:http create-session="stateless" use-expressions="true">
-        <sec:intercept-url pattern="/api/v1/hotels/**" method="GET"
-                                   access="permitAll" />
-        <sec:intercept-url pattern="/api/v1/hotels/**" method="DELETE"
-                                   access="hasRole('admin')" />
-        <sec:intercept-url pattern="/api/v1/hotels/**" method="PUT"
-                                   access="hasRole('admin')" />
-        <sec:intercept-url pattern="/api/v1/hotels/**" method="POST"
-                                   access="hasAnyRole('admin','customer')" />
-        <sec:http-basic />
-    </sec:http>
+        <!-- On Glassfish, dev ports are 8080 and 8181, whereas on
+        production its 80 and 443 -->
+        <sec:port-mappings>
+            <sec:port-mapping http="8080" https="8181"/>
+        </sec:port-mappings>
+    
+    <sec:intercept-url pattern="/api/v1/hotels/**" method="GET"
+                           access="permitAll" requires-channel="https" />
+    <sec:intercept-url pattern="/api/v1/hotels/**" method="DELETE"
+                           access="hasRole('admin')" requires-channel="https" />
+    <sec:intercept-url pattern="/api/v1/hotels/**" method="PUT"
+                           access="hasRole('admin')" requires-channel="https" />
+    <sec:intercept-url pattern="/api/v1/hotels/**" method="POST"
+                           access="hasAnyRole('admin','customer')" requires-channel="https" />
+    <sec:intercept-url 
+        pattern="/**" 
+        access="permitAll" requires-channel="https"/>
+    <sec:http-basic />
+    <sec:headers />
+</sec:http>
 
 </beans>
