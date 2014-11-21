@@ -6,8 +6,9 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.ext.Provider;
 
 /**
- *
- * @author jlombardo
+ * This class is needed when accessing web services from another app, or 
+ * another domain. It's even needed when switching from HTTP to HTTPS URIs
+ * in the same app because the change indicates a different server domain.
  */
 @Provider
 public class CrossOriginResourceSharingFilter implements ContainerResponseFilter {

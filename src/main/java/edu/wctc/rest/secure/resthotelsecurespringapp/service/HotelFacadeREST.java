@@ -15,8 +15,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
- *
- * @author jlombardo
+ * An implementation that overrides most super class methods. This is also
+ * where any custom methods should go, unless those custom methods are
+ * to be shared by all Facade classes. In that case, put them in the super
+ * class.
+ * 
+ * @author Jim Lombardo
  */
 @Stateless
 @Path("v1/hotels")
@@ -49,7 +53,10 @@ public class HotelFacadeREST extends AbstractFacade<Hotel> {
     @Path("{id}")
     @Consumes({"application/json"})
     public void edit(@PathParam("id") Integer id, Hotel entity) {
+        // VERY IMPORTANT. If you don't do this you will creat a new record.
+        // That's because the lack of a primary key indicates new record.
         entity.setHotelId(id);
+        
         super.edit(entity);
     }
 

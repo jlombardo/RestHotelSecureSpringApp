@@ -4,8 +4,10 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 
 /**
- *
- * @author jlombardo
+ * This class configures REST web services for this app.
+ * Note that the CORS filter and Facade classes used for web services
+ * must be explicityly added as resources (see 'addRestResourceClasses'
+ * method below).
  */
 @javax.ws.rs.ApplicationPath("api")
 public class ApplicationConfig extends Application {

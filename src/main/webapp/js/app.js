@@ -2,17 +2,17 @@
  * This is the client-side logic for connecting to RESTful Web Services on 
  * the server-side via the HotelRepository class.
  * 
- * This code is heavily dependent on JQuery 2.x as well as the HATEOAS 
- * implementation of REST provided by Spring. Despite this fact all client-
+ * This code is heavily dependent on JQuery 2.x. Despite this fact all client-
  * side code is language and server framework agnostic. Any server-side
- * framework that can deliver RESTful, HATEOAS style web services can be used.
+ * framework that can deliver RESTful, non-HATEOUS style web services can be used.
  * 
  * References:
  * - Wikipedia: http://en.wikipedia.org/wiki/HATEOS
- * - Spring HATEOAS: https://github.com/spring-projects/spring-hateoas/blob/master/readme.md
  */
 
 // The root URL for the RESTful services
+// NOTE: you MUST use https to make this secure! And the port number is
+// specific to Glassfish developer mode. In production this would be 443
 var rootURL = "https://localhost:8181/RestHotelSecureSpringApp/api/v1/hotels";
 var currentHotel;
 
