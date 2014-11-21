@@ -18,6 +18,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.34</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
@@ -86,7 +91,17 @@
             <artifactId>spring-security-config</artifactId>
             <version>${springsec.version}</version>
         </dependency>
-
+ 
+        <!--
+            JDBC Data Access Library (depends on spring-core, spring-beans, spring-context, spring-tx)
+            Define this if you use Spring's JdbcTemplate API (org.springframework.jdbc.*)
+        -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
     </dependencies>
 
     <build>

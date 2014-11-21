@@ -19,17 +19,6 @@
           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 ">
 
-    <context:component-scan base-package="edu.wctc.rest.secure.resthotelsecurespringapp"/>
-
-    <sec:authentication-manager>
-        <sec:authentication-provider>
-            <sec:user-service id="userService">
-                <sec:user name="admin" password="admin" authorities="admin" />
-                <sec:user name="user" password="user" authorities="customer, admin" />
-            </sec:user-service>
-        </sec:authentication-provider>
-    </sec:authentication-manager>
-
     <sec:http create-session="stateless" use-expressions="true">
         <!-- On Glassfish, dev ports are 8080 and 8181, whereas on
         production its 80 and 443 -->
@@ -37,19 +26,42 @@
             <sec:port-mapping http="8080" https="8181"/>
         </sec:port-mappings>
     
-    <sec:intercept-url pattern="/api/v1/hotels/**" method="GET"
-                           access="permitAll" requires-channel="https" />
-    <sec:intercept-url pattern="/api/v1/hotels/**" method="DELETE"
-                           access="hasRole('admin')" requires-channel="https" />
-    <sec:intercept-url pattern="/api/v1/hotels/**" method="PUT"
-                           access="hasRole('admin')" requires-channel="https" />
-    <sec:intercept-url pattern="/api/v1/hotels/**" method="POST"
-                           access="hasAnyRole('admin','customer')" requires-channel="https" />
-    <sec:intercept-url 
-        pattern="/**" 
-        access="permitAll" requires-channel="https"/>
-    <sec:http-basic />
-    <sec:headers />
-</sec:http>
+        <sec:intercept-url pattern="/api/v1/hotels/**" method="GET"
+                       access="permitAll" requires-channel="https" />
+        <sec:intercept-url pattern="/api/v1/hotels/**" method="DELETE"
+                       access="hasRole('ROLE_ADMIN')" requires-channel="https" />
+        <sec:intercept-url pattern="/api/v1/hotels/**" method="PUT"
+                       access="hasRole('ROLE_ADMIN')" requires-channel="https" />
+        <sec:intercept-url pattern="/api/v1/hotels/**" method="POST"
+                       access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" requires-channel="https" />
+        <sec:intercept-url 
+            pattern="/**" 
+            access="permitAll" requires-channel="https"/>
+        <sec:http-basic />
+        <sec:headers />
+    </sec:http>
 
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider>
+            <sec:password-encoder ref="encoderBean">
+                <sec:salt-source user-property="username"/>
+            </sec:password-encoder>
+            <sec:jdbc-user-service data-source-ref="dataSource" />
+            
+            <!-- if not using a database for accounts, hard-code them here
+            <sec:user-service id="userService">
+                <sec:user name="admin" password="admin" authorities="admin" />
+                <sec:user name="user" password="user" authorities="customer, admin" />
+            </sec:user-service>
+            -->
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+    <bean id="encoderBean" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+        <constructor-arg value="512" />
+        <property name="iterations" value="1024"/>
+    </bean>
+    
+    <!-- Server managed connection pool accessed via JNDI -->
+    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/hotels"/>
 </beans>
